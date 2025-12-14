@@ -425,7 +425,7 @@ public abstract class FontRendererMixin implements FastFontRenderer {
             if (character > 0 && i != -1 && !this.unicodeFlag) {
                 return this.charWidth[i];
             } else if (this.glyphWidth[character] != 0) {
-                int j = this.glyphWidth[character] >>> 4;
+                int j = (this.glyphWidth[character] >>> 4) & 15;
                 int k = this.glyphWidth[character] & 15;
 
                 if (k > 7) {
@@ -503,7 +503,7 @@ public abstract class FontRendererMixin implements FastFontRenderer {
             return 0.0F;
         } else {
             int glyphTex = ch / 256;
-            float widthM = (float) (this.glyphWidth[ch] >>> 4);
+            float widthM = (float) ((this.glyphWidth[ch] >>> 4) & 15);
             float widthL = (float) (this.glyphWidth[ch] & 15);
             float kerning = widthL + 1;
             float u = (float) (ch % 16 * 16) + widthM;
